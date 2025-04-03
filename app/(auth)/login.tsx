@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { Input, Button, Text } from 'react-native-elements';
-import { supabase } from '../lib/supabase';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/navigation';
+import { Link } from 'expo-router';
+import { supabase } from '../../lib/supabase';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
-
-export default function LoginScreen({ navigation }: Props) {
+export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -49,11 +46,12 @@ export default function LoginScreen({ navigation }: Props) {
         loading={loading}
         containerStyle={styles.button}
       />
-      <Button
-        title="Don't have an account? Register"
-        type="clear"
-        onPress={() => navigation.navigate('Register')}
-      />
+      <Link href="/register" asChild>
+        <Button
+          title="Don't have an account? Register"
+          type="clear"
+        />
+      </Link>
     </View>
   );
 }

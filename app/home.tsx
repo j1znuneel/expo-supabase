@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-elements';
+import { useRouter } from 'expo-router';
 import { supabase } from '../lib/supabase';
 import type { AuthUser } from '../types/auth';
 
 export default function HomeScreen() {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     fetchUser();
@@ -25,6 +27,7 @@ export default function HomeScreen() {
 
   async function handleLogout() {
     await supabase.auth.signOut();
+    router.replace('/login');
   }
 
   return (
